@@ -5,16 +5,32 @@ using namespace std;
 int main(){
 	
 
-		int n, m, a;
-		cin >> n >> m >> a;
+		string a, r;
+		cin >> a;
 
-		double w, l;
+		int l;
 
-		w = ceil((n*1.0)/ a);
-		l = ceil((m*1.0)/ a);
+		l = a.size();
 
-		cout << fixed << setprecision(0)<<  w * l << endl;
+		
+		for(int  i = 0; i < l; i++){
+			if(a[i] == 'a'|| a[i] == 'e' || a[i] == 'o' || a[i] == 'i' || a[i] == 'u' || a[i] == 'y' || a[i] == 'A' || a[i] == 'E' || a[i] == 'I' || a[i] == 'O' || a[i] == 'U' || a[i] == 'Y'){
 
+			}
+			else{
+				r.push_back('.');
+				char c;
+				if(a[i] >=65 && a[i] < 97){
+					c = a[i] + 32;
+				}
+				else{
+					c = a[i];
+				}
+				r.push_back(c);
+			}
+		}
+
+		cout << r << endl;
 
 
 
