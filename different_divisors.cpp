@@ -14,7 +14,7 @@ typedef long long int ll;
 #define nl "\n"
 #define sp " "
 
-#define bg 1e6 + 10
+#define bg 1e6
 
 vector<bool> is_prime(bg + 1, true);
 
@@ -38,16 +38,21 @@ void solve()
     int minPrime = 0, minInd, largePrime;
     for (int i = d + 1; i < bg; i++)
     {
+        // if (is_prime[i] && minPrime == 0)
+        // {
+        //     minPrime = i;
+        //     i += d;
+        //     i--;
+        // }
+        // else if (is_prime[i] && i > minPrime)
+        // {
+        //     largePrime = i;
+        //     break;
+        // }
+
         if (is_prime[i] && minPrime == 0)
         {
-            minPrime = i;
-            i += d;
-            i--;
-        }
-        else if (is_prime[i] && i > minPrime)
-        {
-            largePrime = i;
-            break;
+            cout << i << endl;
         }
     }
 

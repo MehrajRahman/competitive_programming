@@ -8,12 +8,12 @@ typedef long long int ll;
 #define print(x) cout<< #x <<" = "<< x<<"\n";
 #define nl "\n"
 #define sp " "
-
+ 
 void solve(){
    ll a;
    cin >> a ;
    vector<int > v(a);
-
+ 
    int o = 0, e  = 0;
    for(int i = 0; i < a; i++){
       int x;
@@ -27,7 +27,7 @@ void solve(){
          e++;
       }
    }
-
+ 
    if(o>=3 ){
        cout << "YES"<<endl;
       int kk = 0;
@@ -48,9 +48,9 @@ void solve(){
       for(int i = 0; i < a; i++){
          if(v[i] & 1 && oo < 1){
             cout << i + 1 << " ";
-                        oo++;
+            oo++;
          }
-         else if( kk < 2){
+         else if(v[i] %2 == 0 &&  kk < 2){
             cout << i + 1 << " ";
             kk++;
          }
@@ -62,25 +62,25 @@ void solve(){
    } 
    else{
       cout << "NO" << endl;
-
+ 
    }
-
+ 
    
-
-
-
-
+ 
+ 
+ 
+ 
    
 }
-
-
+ 
+ 
 int main(){
-
+ 
     fast;
     int t;
     cin>>t;
     while(t--) solve();
     // solve();
     return 0;
-
+ 
 }

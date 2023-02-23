@@ -1,51 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool comp(int a, int b){
+bool comp(int a, int b)
+{
 	return a > b;
 }
 
-int main(){
+int main()
+{
 	int k;
 	cin >> k;
-	while(k--){
-
-		int n,x,m, flag= 0;
-		cin >>x >> n>> m;
-
-		int t = n;
-
-		if(x <= m*10){
-			cout << "YES" <<endl;
-			flag = 1;
-		}
-
-		if(flag == 0){
-			while(n--){
-				if(flag == 0 && x <= m*10){
-					cout << "YES" <<endl;
-					flag = 1;
+	string a;
+	cin >> a;
+	string b;
+	b.push_back(a[0]);
+	b.push_back(a[1]);
+	int max = 0;
+	for (int i = 0; i < k - 2; i++)
+	{
+		int cnt = 0;
+		for (int j = i + 1; j < k; j++)
+		{
+			if (a[i] == a[j] && a[i + 1] == a[j + 1])
+			{
+				cnt++;
+				if (cnt > max)
+				{
+					max = cnt;
+					b.clear();
+					b.push_back(a[i]);
+					b.push_back(a[i + 1]);
 				}
-				x = x/2 + 10;
 			}
 		}
-
-
-		x -= m*10;
-
-		if(flag == 0){
-			if(x <= 0 ){
-				cout << "YES" <<endl;
-			}
-			else{
-				cout << "NO" << endl;
-			}
-
-		}
-
-		
 	}
 
+	cout << b << endl;
 
 	return 0;
 }

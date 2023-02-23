@@ -1,74 +1,65 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
-int main(){
-    int s, all_weight = 0, all_cost = 0;
-    cin >> s;
+bool comp(pair<int, int> a, pair<int, int> b)
+{
+    return a.second < b.second;
+}
 
-    int arr[s][2];
+int main()
+{
+    int t;
+    cin >> t;
+    vector<pair<int, int>> v;
 
-    for(int i = 0; i < s; i++ ){
-        int a,b;
+    for (int i = 0; i < t; i++)
+    {
+        int a, b;
         cin >> a >> b;
 
-        arr[i][0] = a;
-        arr[i][1]  =b;
-
-    }
-    int min  = arr[0][1], index = 0;
-    for(int i = 0; i < s; i++){
-        if(min > arr[i][1]){
-            min  = arr[i][1];
-            index = i;
-        }
+        v.push_back(make_pair(a, b));
     }
 
-    for(int i = 0; i < s; i++){
-        if(  i >= index){
-            all_weight = all_weight + arr[i][0];
-        }
-        else{
-            all_cost = all_cost + arr[i][0]* arr[i][1];
-        }
+    sort(v.begin(), v.end(), comp);
+    // long long sum = 0;
+    // int ind = 0;
+    // for (int i = 0; i < t; i++)
+    // {
+    //     sum += v[i].first * v[i].second;
+    //     ind = i + 1;
+
+    //     while (true)
+    //     {
+    //         if (ind > t - 1)
+    //         {
+    //             break;
+    //         }
+    //         if (v[i].second > v[ind].second)
+    //         {
+    //             break;
+    //         }
+    //         else
+    //         {
+    //             ind++;
+    //         }
+    //     }
+    //     if (ind > i + 1)
+    //     {
+    //         for (int j = i + 1; j < ind; j++)
+    //         {
+    //             sum += v[j].first * v[i].second;
+    //         }
+
+    //         i = ind - 1;
+    //     }
+    // }
+
+    for (auto it : v)
+    {
+        cout << it.first << it.second << endl;
     }
 
-
-
-
-   // cout << "All COST: " <<all_cost;
-
-    for(int i = 0; i < index; i++){
-        int  all_cost_revised = 0, all_weight = 0;
-        for(int j = 0; j < i; j++){
-            all_cost_revised = all_cost_revised + arr[j][0] * arr[j][1];
-        }
-
-        for(int j = i; j < index; j++){
-            all_weight = all_weight + arr[j][0] ;
-        }
-        all_cost_revised = all_cost_revised + all_weight * arr[i][1];
-
-
-
-        if(all_cost_revised < all_cost){
-            all_cost = all_cost_revised;
-        }
-
-    }
-
-    all_cost = all_cost + all_weight * min;
-
-
-    cout << all_cost << endl;
-
-
-
-
-
-
-
-
-
+    // cout << sum << endl;
 
     return 0;
 }
