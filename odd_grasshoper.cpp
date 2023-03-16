@@ -1,66 +1,113 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long int ll;
-#define fast ios_base::sync_with_stdio(0);cout.tie(nullptr);cin.tie(nullptr);
-#define precision cout << fixed << setprecision(12);
-#define done cout<<"Successful\n";
-#define input(gggg,n) for(int xd=0;xd<n;xd++)cin>>gggg[xd];
-#define print(x) cout<< #x <<" = "<< x<<"\n";
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int, int> pi;
+typedef set<int> si;
+typedef map<int, int> mi;
+typedef map<char, int> mc;
+
+#define fast                     \
+   ios_base::sync_with_stdio(0); \
+   cout.tie(nullptr);            \
+   cin.tie(nullptr);
+#define input(gggg, n)            \
+   for (int xd = 0; xd < n; xd++) \
+      cin >> gggg[xd];
+#define REP(i, a, b) for (int i = a; i <= b; ++i)
+#define F first
+#define S second
+#define PB push_back
+#define MP make_pair
 #define nl "\n"
 #define sp " "
 
-void solve(){
-   ll x,  n,  first;
-   cin >>x >>n;
-
-   long double sTwo, sThree, sFour, sFive,
-   rs = 0,tn = 0 , thn = 0, fin = 0, fn = 0;
-
-   // cout << "N is : " << n << endl;
-
-   if(n > 0){
-      first = 1;
-   }else{
-      first = 0;
+ll sq_rt(ll x)
+{
+   ll lo = 1, hi = 1e10;
+   while (lo <= hi)
+   {
+      ll mid = (lo + hi) / 2ll;
+      if (mid * mid == x)
+         return mid;
+      else if (mid * mid > x)
+         hi = mid - 1ll;
+      else
+         lo = mid + 1ll;
    }
-
-
-   if(n >= 2){
-      tn = (n - 2 )/4  + 1;
-   }
-   if(n >= 3 ){
-      thn= (n - 3 )/4 + 1;
-   }
-   if(n >= 4){
-      fn = (n - 4 )/4 + 1;
-   }
-   if(n >= 5){
-      fin = (n - 5 )/4 + 1;
-   }
-
-   sTwo = ((tn)/ 2)*(2 * 2 + (tn - 1) * 4);
-   sThree = ((thn)/ 2)*(2 * 3 + (thn - 1) * 4);
-   sFour = ((fn)/ 2)*(2 * 4 + (fn - 1) * 4);
-   sFive = ((fin)/ 2)*(2 * 5 + (fin - 1) * 4);
-
-   cout << sTwo << " " << sThree << " " << sFour << " " << sFive <<endl; 
-
-   if(x %2 == 0){
-      rs = x - first + sTwo + sThree - sFour - sFive;
-   }else{
-      rs = x + first - sTwo - sThree + sFour+ sFive;
-   }   
-   cout << fixed <<setprecision(0) << rs << endl;
-
+   assert(false);
 }
 
+void solve()
+{
+   ll n, k, r;
+   cin >> n >> k;
 
-int main(){
-    fast;
-    int t;
-    cin>>t;
-    while(t--) solve();
-    // solve();
-    return 0;
+   if (k == 0)
+   {
+      cout << n << nl;
+   }
+   else
+   {
+      if (n % 2 == 0)
+      {
+         ll d = (k - 1) / 4;
+         r = n - d * 4 - 1;
 
+         int rr = (k - 1) % 4;
+
+         if (rr == 1)
+         {
+            r += k;
+         }
+         else if (rr == 2)
+         {
+            r += k;
+            r += k - 1;
+         }
+         else if (rr == 3)
+         {
+            r -= k;
+            r += k - 1;
+            r += k - 2;
+         }
+      }
+      else
+      {
+         ll d = (k - 1) / 4;
+         r = n + d * 4 + 1;
+
+         int rr = (k - 1) % 4;
+
+         if (rr == 1)
+         {
+            r -= k;
+         }
+         else if (rr == 2)
+         {
+            r -= k;
+            r -= k - 1;
+         }
+         else if (rr == 3)
+         {
+            r += k;
+            r -= k - 1;
+            r -= k - 2;
+         }
+      }
+
+      cout << r << nl;
+   }
+}
+
+int main()
+{
+   fast;
+   int t;
+   cin >> t;
+   while (t--)
+      solve();
+   // solve();
+   return 0;
 }

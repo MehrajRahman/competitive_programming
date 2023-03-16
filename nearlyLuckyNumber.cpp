@@ -10,7 +10,7 @@ int main(){
     int l = n.length();
 
     for (int i = 0; i < l; i ++){
-        int x =  int(n[i]) -48;
+        int x =  int(n[i]) - 48;
 
         if(x == 4 || x ==7){
             c++;
