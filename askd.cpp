@@ -1,12 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 typedef long long ll;
 typedef vector<int> vi;
+typedef vector<ll> vl;
 typedef pair<int, int> pi;
 typedef set<int> si;
 typedef map<int, int> mi;
 typedef map<char, int> mc;
+typedef map<string, string> ms;
 
 #define fast                      \
     ios_base::sync_with_stdio(0); \
@@ -22,6 +23,9 @@ typedef map<char, int> mc;
 #define MP make_pair
 #define nl "\n"
 #define sp " "
+#define MAX 1e7
+ll n = MAX;
+vector<bool> prime(n + 1, true);
 
 ll sq_rt(ll x)
 {
@@ -39,67 +43,57 @@ ll sq_rt(ll x)
     assert(false);
 }
 
-void solve()
+void seiv()
 {
-    int n, min;
-    cin >> n;
-    vi v;
-    si s;
-    REP(i, 0, n)
+    prime[0] = false;
+    prime[1] = false;
+    for (int i = 2; i * i <= n; i++)
     {
-        int x;
-        cin >> x;
-        v.PB(x);
-    }
-    sort(v.begin(), v.end());
-    
-    if(n == 2){
-        cout << v[1] << nl;
-        return;
-    }
-
-    REP(i, 0, n - 1)
-    {
-        REP(j, i + 1, n)
+        if (prime[i])
         {
-            int gcd = __gcd(v[i], v[j]);
-            // cout << gcd << nl;
-            s.insert(gcd);
-            if (i == 0 && j == 1)
-            {
-                min = gcd;
-            }
-            else if (gcd < min)
-            {
-                min = gcd;
-            }
+            for (int j = i * i; j <= n; j += i)
+                prime[j] = false;
         }
-    }
-    set<int>::iterator it;
-    it = s.begin();
-    ++it;
-    int c = 0;
-    
-    REP(i,0,n){
-        if(v[i] % *it != 0){
-            c++;
-        }
-    }
-    if(c == 1){
-        cout << *it << nl;
-    }else{
-        --it;
-        cout << *it << nl;
     }
 }
 
+void solve()
+
+{
+
+    ll t;
+    cin >> t;
+
+    for (ll i = 0; i * i <= t; ++i)
+    {
+        if (prime[i])
+        {
+            if (t % i == 0)
+            {
+                ll psq = t / i;
+                if (t % (i * i) == 0)
+                {
+                    cout << i << " " << (t / (i * i)) << nl;
+                    return;
+                }
+                ll sq = sq_rt(psq);
+                if (sq * sq == psq)
+                {
+                    cout << sq << ' ' << i << nl;
+                    return;
+                }
+            }
+        }
+    }
+}
 int main()
 {
     fast;
-    // int t;
-    // cin >> t;
-    // while (t--)
-    //     solve();
-    solve();
+    seiv();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
+    //    solve();
     return 0;
 }

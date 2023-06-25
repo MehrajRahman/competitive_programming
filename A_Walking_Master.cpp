@@ -41,65 +41,45 @@ ll sq_rt(ll x)
 
 void solve()
 {
-    int n, min;
-    cin >> n;
-    vi v;
-    si s;
-    REP(i, 0, n)
-    {
-        int x;
-        cin >> x;
-        v.PB(x);
-    }
-    sort(v.begin(), v.end());
-    
-    if(n == 2){
-        cout << v[1] << nl;
-        return;
-    }
+    ll a, b, c, d;
+    cin >> a >> b >> c >> d;
 
-    REP(i, 0, n - 1)
+    if (d < b)
     {
-        REP(j, i + 1, n)
+        cout << -1 << nl;
+    }
+    else if (d == b)
+    {
+        if (a < c)
         {
-            int gcd = __gcd(v[i], v[j]);
-            // cout << gcd << nl;
-            s.insert(gcd);
-            if (i == 0 && j == 1)
-            {
-                min = gcd;
-            }
-            else if (gcd < min)
-            {
-                min = gcd;
-            }
+            cout << -1 << nl;
+        }
+        else
+        {
+            cout << a - c << nl;
         }
     }
-    set<int>::iterator it;
-    it = s.begin();
-    ++it;
-    int c = 0;
-    
-    REP(i,0,n){
-        if(v[i] % *it != 0){
-            c++;
+    else
+    {
+        a += (d - b);
+        if (a < c)
+        {
+            cout << -1 << nl;
         }
-    }
-    if(c == 1){
-        cout << *it << nl;
-    }else{
-        --it;
-        cout << *it << nl;
+        else
+        {
+            cout << a - c + d - b << nl;
+        }
     }
 }
 
 int main()
 {
     fast;
-    // int t;
-    // cin >> t;
-    // while (t--)
-    //     solve();
-    solve();
+    int t;
+    cin >> t;
+    while (t--)
+        solve();
+    // solve();
     return 0;
 }

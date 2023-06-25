@@ -17,32 +17,31 @@ typedef long long int ll;
 void solve()
 {
 
-    int n, fi, ri;
-
+    int n, s = 0, u = 0;
+    string a;
     cin >> n;
-
-    vector<char> v(n);
-    input(v, n);
+    cin >> a;
 
     for (int i = 0; i < n; ++i)
     {
-        if (v[i] != ')')
+        if (a[i] == '(')
         {
-            fi = i;
-            break;
+            s++;
+        }
+        else
+        {
+            if (s > 0)
+            {
+                s--;
+            }
+            else
+            {
+                u--;
+            }
         }
     }
 
-    for (int i = n - 1; i >= 0; --i)
-    {
-        if (v[i] != '(')
-        {
-            ri = n - 1 - i;
-            break;
-        }
-    }
-
-    cout << max(fi, ri) << endl;
+    cout << abs(u) << endl;
 }
 int main()
 {

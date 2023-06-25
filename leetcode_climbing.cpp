@@ -39,67 +39,49 @@ ll sq_rt(ll x)
     assert(false);
 }
 
+ll fact(ll n);
+
+ll nCr(ll n, ll r)
+{
+    return fact(n) / (fact(r) * fact(n - r));
+}
+
+// Returns factorial of n
+ll fact(ll n)
+{
+    if (n == 0)
+        return 1;
+    ll res = 1;
+    for (ll i = 2; i <= n; i++)
+        res = res * i;
+    return res;
+}
+
 void solve()
 {
-    int n, min;
+    ll n;
     cin >> n;
-    vi v;
-    si s;
-    REP(i, 0, n)
+
+    ll d = n / 2 + n % 2;
+    ll nn = n / 2;
+    ll sum = 0;
+
+    while (nn--)
     {
-        int x;
-        cin >> x;
-        v.PB(x);
-    }
-    sort(v.begin(), v.end());
-    
-    if(n == 2){
-        cout << v[1] << nl;
-        return;
+        // cout << " d " << d << "nn" << nn + 1 << nl;
+
+        sum += nCr(d, nn + 1);
+        d++;
     }
 
-    REP(i, 0, n - 1)
-    {
-        REP(j, i + 1, n)
-        {
-            int gcd = __gcd(v[i], v[j]);
-            // cout << gcd << nl;
-            s.insert(gcd);
-            if (i == 0 && j == 1)
-            {
-                min = gcd;
-            }
-            else if (gcd < min)
-            {
-                min = gcd;
-            }
-        }
-    }
-    set<int>::iterator it;
-    it = s.begin();
-    ++it;
-    int c = 0;
-    
-    REP(i,0,n){
-        if(v[i] % *it != 0){
-            c++;
-        }
-    }
-    if(c == 1){
-        cout << *it << nl;
-    }else{
-        --it;
-        cout << *it << nl;
-    }
+    cout << sum + 1 << nl;
 }
 
 int main()
 {
     fast;
-    // int t;
-    // cin >> t;
-    // while (t--)
-    //     solve();
+    int t;
+
     solve();
     return 0;
 }

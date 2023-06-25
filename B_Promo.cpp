@@ -41,65 +41,40 @@ ll sq_rt(ll x)
 
 void solve()
 {
-    int n, min;
+    ll n, e = 0, o = 0;
     cin >> n;
-    vi v;
-    si s;
+
+    vi s;
+
     REP(i, 0, n)
     {
         int x;
         cin >> x;
-        v.PB(x);
-    }
-    sort(v.begin(), v.end());
-    
-    if(n == 2){
-        cout << v[1] << nl;
-        return;
+        s.PB(x);
     }
 
-    REP(i, 0, n - 1)
+    for (auto x : s)
     {
-        REP(j, i + 1, n)
+        if (x % 2 == 0)
         {
-            int gcd = __gcd(v[i], v[j]);
-            // cout << gcd << nl;
-            s.insert(gcd);
-            if (i == 0 && j == 1)
-            {
-                min = gcd;
-            }
-            else if (gcd < min)
-            {
-                min = gcd;
-            }
+            e++;
+        }
+        else
+        {
+            o++;
         }
     }
-    set<int>::iterator it;
-    it = s.begin();
-    ++it;
-    int c = 0;
-    
-    REP(i,0,n){
-        if(v[i] % *it != 0){
-            c++;
-        }
-    }
-    if(c == 1){
-        cout << *it << nl;
-    }else{
-        --it;
-        cout << *it << nl;
-    }
+
+    cout << min(e, o) << nl;
 }
 
 int main()
 {
     fast;
-    // int t;
-    // cin >> t;
-    // while (t--)
-    //     solve();
+    int t;
+    //    cin >> t;
+    //    while (t--)
+    //       solve();
     solve();
     return 0;
 }
