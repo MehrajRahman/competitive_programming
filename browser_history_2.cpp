@@ -25,26 +25,24 @@
 //     }
 //     return c;
 // }
-// void insert_at_head(Node *&head, Node *&tail, string v)
+// void insertInHead(Node *&head, Node *&tail, string v)
 // {
 //     Node *newNode = new Node(v);
 //     if (size(head) == 0)
 //     {
-
 //         head = newNode;
 //         tail = newNode;
 //     }
-
-//     else
-//     {
-//         Node *tmp = head;
-//         tmp->prev = newNode;
-//         newNode->next = tmp;
-//         head = newNode;
-//     }
+//     // else
+//     // {
+//     //     Node *tmp = head;
+//     //     tmp->prev = newNode;
+//     //     newNode->next = tmp;
+//     //     head = newNode;
+//     // }
 // }
 
-// void insert_at_tail(Node *&tail, string v)
+// void insertAtTail(Node *&tail, string v)
 // {
 //     Node *newNode = new Node(v);
 
@@ -54,43 +52,33 @@
 //     tail = newNode;
 // }
 
-// void print_left(Node *head)
-// {
-//     Node *temp = head;
-//     while (temp != NULL)
-//     {
-//         cout << temp->name << " ";
-//         temp = temp->next;
-//     }
-// }
-
-// int visit(Node *head, Node *&curr, string q)
+// int currentVisit(Node *head, Node *&curr, string q)
 // {
 //     Node *tmp = head;
-//     int c = -1;
+//     int status = -1;
 //     while (tmp != NULL)
 //     {
 //         if (tmp->name == q)
 //         {
-//             c = 1;
+//             status = 1;
 //             curr = tmp;
 //             break;
 //         }
 //         tmp = tmp->next;
 //     }
 
-//     return c;
+//     return status;
 // }
 // int main()
 // {
 //     Node *head = NULL;
 //     Node *tail = NULL;
 
+//     string web;
 //     while (true)
 //     {
-//         string a;
-//         cin >> a;
-//         if (a == "end")
+//         cin >> web;
+//         if (web == "end")
 //         {
 //             break;
 //         }
@@ -98,18 +86,20 @@
 //         {
 //             if (size(head) == 0)
 //             {
-//                 insert_at_head(head, tail, a);
+//                 insertInHead(head, tail, web);
 //             }
 //             else
 //             {
-//                 insert_at_tail(tail, a);
+//                 insertAtTail(tail, web);
 //             }
 //         }
 //     }
-//     int t;
-//     cin >> t;
+
+//     int time;
+//     cin >> time;
 //     Node *curr = NULL;
-//     while (t--)
+
+//     while (time--)
 //     {
 //         string a;
 //         cin >> a;
@@ -117,7 +107,7 @@
 //         {
 //             string q;
 //             cin >> q;
-//             int c = visit(head, curr, q);
+//             int c = currentVisit(head, curr, q);
 //             if (c == -1)
 //             {
 //                 cout << "Not Available" << endl;
@@ -155,133 +145,121 @@
 // }
 
 #include <bits/stdc++.h>
-
 using namespace std;
+
 class Node
 {
 public:
-    int val;
-    Node *next;
-    Node *prev;
-    Node(int val)
+    string web;
+    Node *nextSite;
+    Node *prevSite;
+    Node(string web)
     {
-        this->val = val;
-        this->next = NULL;
-        this->prev = NULL;
+        this->web = web;
+        this->nextSite = NULL;
+        this->prevSite = NULL;
     }
 };
-void printNormal(Node *head)
-{
-    Node *tmp = head;
-    while (tmp != NULL)
-    {
-        cout << tmp->val << " ";
-        tmp = tmp->next;
-    }
-    cout << endl;
-}
 
-void printReverse(Node *tail)
+void insertAtTail(Node *&tail, string q)
 {
+    Node *newNode = new Node(q);
     Node *tmp = tail;
-    while (tmp != NULL)
-    {
-        cout << tmp->val << " ";
-        tmp = tmp->prev;
-    }
-    cout << endl;
+    tmp->nextSite = newNode;
+    newNode->prevSite = tmp;
+    tail = newNode;
 }
 
-int size(Node *head)
+int currentVisit(Node *head, Node *&curr, string q)
 {
     Node *tmp = head;
-    int cnt = 0;
+    int status = -1;
     while (tmp != NULL)
     {
-        cnt++;
-        tmp = tmp->next;
-    }
-    return cnt;
-}
-
-void insert_at_head(Node *&head, Node *&tail, int v)
-{
-    Node *newNode = new Node(v);
-    if (size(head) == 0)
-    {
-
-        head = newNode;
-        tail = newNode;
-    }
-
-    else
-    {
-        Node *tmp = head;
-        tmp->prev = newNode;
-        newNode->next = tmp;
-        head = newNode;
-    }
-}
-
-void insertAnypos(Node *&head, Node *&tail, int pos, int val)
-{
-    Node *newNode = new Node(val);
-    Node *tmp = head;
-
-    if (pos == size(head))
-    {
-
-        Node *tmp = tail;
-        tmp->next = newNode;
-        newNode->prev = tmp;
-        tail = newNode;
-    }
-    else
-    {
-        for (int i = 1; i < pos; i++)
+        if (tmp->web == q)
         {
-            tmp = tmp->next;
+            status = 1;
+            curr = tmp;
+            break;
         }
-        newNode->next = tmp->next;
-        newNode->prev = tmp;
-        tmp->next->prev = newNode;
-        tmp->next = newNode;
+        tmp = tmp->nextSite;
     }
-}
 
+    return status;
+}
 int main()
 {
-
     Node *head = NULL;
     Node *tail = NULL;
-    int t;
-    cin >> t;
-    while (t--)
+    Node *curr = NULL;
+
+    while (true)
     {
-        int p, v;
-        cin >> p >> v;
-        if (p > size(head))
+        string inp;
+        cin >> inp;
+        if (inp == "end")
         {
-            cout << "Invalid" << endl;
+            break;
         }
         else
         {
-            if (p == 0)
+            if ((head == NULL))
             {
-                insert_at_head(head, tail, v);
+                Node *newNode = new Node(inp);
+                head = newNode;
+                tail = newNode;
             }
             else
-                insertAnypos(head, tail, p, v);
-
-            cout << "L -> ";
-            printNormal(head);
-            // cout << endl;
-
-            cout << "R -> ";
-            printReverse(tail);
-            // cout << endl;
+            {
+                insertAtTail(tail, inp);
+            }
         }
     }
 
-    return 0;
+    int testCase;
+    cin >> testCase;
+
+    while (testCase--)
+    {
+        string current;
+        cin >> current;
+        if (current == "visit")
+        {
+            string query;
+            cin >> query;
+            int c = currentVisit(head, curr, query);
+            if (c == -1)
+            {
+                cout << "Not Available" << endl;
+            }
+            else
+            {
+                cout << curr->web << endl;
+            }
+        }
+        else if (current == "next")
+        {
+            if (curr->nextSite != NULL)
+            {
+                curr = curr->nextSite;
+                cout << curr->web << endl;
+            }
+            else
+            {
+                cout << "Not Available" << endl;
+            }
+        }
+        else if (current == "prev")
+        {
+            if (curr->prevSite != NULL)
+            {
+                curr = curr->prevSite;
+                cout << curr->web << endl;
+            }
+            else
+            {
+                cout << "Not Available" << endl;
+            }
+        }
+    }
 }

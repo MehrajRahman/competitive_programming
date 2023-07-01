@@ -59,7 +59,7 @@ void solve()
 {
     int n;
     cin >> n;
-    vi v(n);
+    vector<ll> v(n);
     // mi m;
 
     REP(i, 0, n)
@@ -75,6 +75,7 @@ void solve()
     }
 
     si s[n];
+    vi pop[n];
     vector<map<ll, ll>> m;
     map<ll, ll> mm, rm;
     int k = 0;
@@ -83,6 +84,7 @@ void solve()
         if (i == n - 1)
         {
             s[i].insert(v[i]);
+            pop[k].PB(i);
             mm[v[i]]++;
             m.PB(mm);
             mm.clear();
@@ -90,18 +92,19 @@ void solve()
         else
         {
             s[i].insert(v[i]);
+            pop[0].PB(i);
             mm[v[i]]++;
-            for (auto x : s[i + 1])
+            for (auto x : m[k - 1])
             {
-                int kk = __gcd(v[i], x);
+                int kk = __gcd(v[i], x.F);
                 s[i].insert(kk);
                 if (!mm.count(kk))
                 {
-                    mm[kk] = m[k - 1][x];
+                    mm[kk] = m[k - 1][x.F];
                 }
                 else
                 {
-                    mm[kk] += m[k - 1][x];
+                    mm[kk] += m[k - 1][x.F];
                 }
             }
             m.PB(mm);

@@ -28,87 +28,78 @@ typedef map<char, int> mc;
 
 #define bg 1000000
 
-vector<bool> is_prime(bg + 1, true);
+const int maxX = 1e6 + 1;
 
-vector<long long> is_prime_main;
-vector<int> vv;
+ll ans;
+int N, dp[maxX];
+bool b[maxX];
+vi primes;
 
-void findPrime()
+void init()
 {
-    is_prime[0] = is_prime[1] = false;
-
-    for (ll i = 2; i * i <= bg; i++)
-    {
-
-        if (is_prime[i] && i * i <= bg)
-        {
-
-            for (ll j = i * i; j <= bg; j += i)
-            {
-                is_prime[j] = false;
-            }
-        }
-    }
-}
-void insert()
-{
-    for (ll i = 2; i <= bg; i++)
-    {
-        if (is_prime[i])
-        {
-            vv.PB(i);
-        }
-    }
+    fill(b + 2, b + maxX, true);
+    for (int i = 2; i * i < maxX; i++)
+        if (b[i])
+            for (int j = i * i; j < maxX; j += i)
+                b[j] = false;
+    for (int i = 2; i < maxX; i++)
+        if (b[i])
+            primes.push_back(i);
 }
 
-bool comparefn(lpr a, lpr b)
+void compute(int x)
 {
-    if (a.S != b.S)
-        return a.S < b.S;
-    return false;
+    vector<int> pf;
+    for (int p : primes)
+    {
+        if (x == 1)
+            break;
+        else if (b[x])
+        {
+            pf.push_back(x);
+            break;
+        }
+
+        if (x % p)
+            continue;
+        pf.push_back(p);
+        while (x % p == 0)
+            x /= p;
+    }
+
+    int K = (int)pf.size();
+
+    cout << "k is " << K << " " << (1 << K) << nl;
+
+    for (int mask = 0; mask < (1 << K); mask++)
+    {
+        int mu = 1;
+        for (int i = 0; i < K; i++)
+            if (mask & (1 << i))
+                mu *= pf[i];
+
+        int k = __builtin_popcount(mask);
+        ans += (k & 1 ? -dp[mu] : dp[mu]);
+        dp[mu]++;
+    }
 }
 
 void solve()
 {
-    int n;
+    int n, x;
     cin >> n;
-    vi v(n);
-    mi m;
-    REP(i, 0, n)
-    {
-        cin >> v[i];
-    }
 
     REP(i, 0, n)
     {
-        for (int j = 0; j <= vv.size(); j++)
-        {
-            // cout << vv[j] << " " << v[j] << "for loop" << nl;
-            if (vv[j] > v[i])
-                break;
-            if (v[i] % vv[j] == 0)
-            {
-                m[vv[j]]++;
-            }
-        }
+        cin >> x;
+        compute(x);
     }
-    ll ms = n * (n - 1) / 2;
-    // cout << "ms : " << ms << nl;
-    for (auto x : m)
-    {
-        if (x.F > 1)
-        {
-            ll s = x.S * (x.S - 1) / 2;
-            ms -= s;
-        }
-    }
-    cout << ms << nl;
+    cout << ans << nl;
 }
 int main()
 {
     fast;
-    findPrime();
-    insert();
+    // findPrime();
     // int t;
     // cin >> t;
     // while (t--)

@@ -1,10 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <map>
-#include <set>
-
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 typedef long long ll;
@@ -63,53 +57,19 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<ll> v(n);
+    int x1, y1, x2, y2, x3, y3, xx = 0, yy = 0;
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
 
-    REP(i, 0, n)
+    if ((x1 > x2 && x1 > x3) || (x1 < x2 && x1 < x3))
     {
-        cin >> v[i];
+        xx = min(abs(x1 - x2), abs(x1 - x3));
+    }
+    if ((y1 > y2 && y1 > y3) || (y1 < y2 && y1 < y3))
+    {
+        yy = min(abs(y1 - y2), abs(y1 - y3));
     }
 
-    si s[n];
-    vector<ll> vv[n + 1];
-    map<ll, ll> mm[n + 1];
-
-    int k = 0;
-    REPP(i, n - 1, 0)
-    {
-        if (i == n - 1)
-        {
-            s[0].insert(v[i]);
-            vv[k].PB(v[i]);
-            mm[k].insert(MP(v[i], 1));
-        }
-        else
-        {
-            s[0].insert(v[i]);
-            vv[k].PB(v[i]);
-            mm[k].insert(MP(v[i], 1));
-            int c = 1;
-            for (auto x : mm[k - 1])
-            {
-                int kk = __gcd(v[i], x.F);
-                vv[k].PB(kk);
-                mm[k].insert(MP(v[i], mm[k][v[i]]++));
-                s[c].insert(kk);
-                c++;
-            }
-        }
-        k++;
-    }
-
-    REP(i, 0, n)
-    {
-        auto it = s[i].end();
-        --it;
-        cout << *it << " ";
-    }
-    cout << nl;
+    cout << xx + yy + 1 << nl;
 }
 int main()
 {
