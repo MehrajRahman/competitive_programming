@@ -57,70 +57,80 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    ll k, m, n;
+    cin >> k >> m >> n;
+    if (k < min(m, n))
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
 
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
+        cout << "Barb" << nl;
 
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
-        {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
-        }
+        return;
+    }
+    if (k / max(m, n) == 1)
+    {
+        cout << "Alex" << nl;
+        return;
     }
 
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
+    if (m == n)
     {
-        cout << "NO" << nl;
+        int r = k / m;
+        if (r & 1)
+        {
+            cout << "Alex" << nl;
+        }
+        else
+        {
+            cout << "Barb" << nl;
+        }
     }
     else
     {
-        cout << "YES" << nl;
+        int r = k / max(m, n);
+        int l = k / min(m, n);
+
+        if (k % m == 0 && k % n == 0)
+        {
+            if (max(r, l) - min(r, l) > 1)
+                cout << "Alex" << nl;
+            else
+                cout << "Barb" << nl;
+            return;
+        }
+        if (k % max(m, n) >= min(m, n))
+            r++;
+        if (r % 2 == 1 && l % 2 == 1)
+        {
+            cout << "Alex" << nl;
+        }
+        else if (r % 2 == 0 && l % 2 == 0)
+        {
+            cout << "Barb" << nl;
+        }
+        else
+        {
+
+            if (max(r, l) & 1)
+                cout << "Alex" << nl;
+            else if (max(r, l) - min(r, l) > 1)
+            {
+                cout << "Alex" << nl;
+            }
+            else
+                cout << "Barb" << nl;
+        }
     }
 }
 int main()
 {
     fast;
     // findPrime();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
-    // solve();
+    // int t;
+    // cin >> t;
+    // while (t--)
+    // {
+    //     solve();
+    // }
+    solve();
     return 0;
 }

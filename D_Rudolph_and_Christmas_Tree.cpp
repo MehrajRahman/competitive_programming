@@ -57,59 +57,37 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    ll n, d, h;
+    cin >> n >> d >> h;
+    double ans = 0;
+    vector<ll> v(n);
+    REP(i, 0, n)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
+        cin >> v[i];
+    }
 
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
+    REPP(i, n - 1, 0)
+    {
+        if (i == n - 1)
         {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
+            double cans = 1.00 / 2 * (d * 1.00) * h;
+            ans += cans;
         }
-        if (i == inp.size() - 1)
+        else if (i >= 0)
         {
-            cout << j << nl;
-            if (j <= l - 1)
+            double cans = 1.00 / 2 * (d * 1.00) * h;
+            if (v[i + 1] - v[i] < h)
             {
-                flag = 1;
+                double newbase = (d * 1.00 / 2) * ((h - v[i + 1] + v[i]) * 1.00 / h);
+                double minuspart = 1.00 / 2 * newbase * 2 * ((h - v[i + 1] + v[i]) * 1.00);
+                cans -= minuspart;
+                // cout << "REEM: " << reem << "  " << cans << " " << v[i + 1] << " v[i]" << v[i] << nl;
             }
+            ans += cans;
         }
     }
 
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
-    {
-        cout << "NO" << nl;
-    }
-    else
-    {
-        cout << "YES" << nl;
-    }
+    cout << fixed << setprecision(6) << ans << nl;
 }
 int main()
 {

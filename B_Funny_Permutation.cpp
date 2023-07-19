@@ -57,59 +57,27 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    int n;
+    cin >> n;
+    if (n == 3 || n == 1)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
-
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
-        {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
-        }
+        cout << -1 << nl;
+        return;
     }
-
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
+    else if (n == 2)
     {
-        cout << "NO" << nl;
+        cout << 2 << " " << 1 << nl;
+        return;
     }
-    else
+    REP(i, n / 2 + 1, n + 1)
     {
-        cout << "YES" << nl;
+        cout << i << " ";
     }
+    REP(i, 1, n / 2 + 1)
+    {
+        cout << i << " ";
+    }
+    cout << nl;
 }
 int main()
 {

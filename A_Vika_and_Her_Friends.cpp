@@ -57,52 +57,20 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
+    int n, m, k, a, b;
+    cin >> n >> m >> k >> a >> b;
+    vector<pi> v;
+    int cc = 0;
 
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    REP(i, 0, k)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
-
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
-        {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
-        }
+        int x, y;
+        cin >> x >> y;
+        if (x != a && y != b)
+            cc++;
+        v.PB({a, b});
     }
-
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
+    if (cc > 1)
     {
         cout << "NO" << nl;
     }

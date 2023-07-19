@@ -68,7 +68,7 @@ void solve(int x)
 
     if (n == k)
     {
-        int v = fact(k) / (fact(2) * fact(k - 2));
+        int v = k * (k - 1) / 2;
         if (v == k)
         {
             cout << "YES" << nl;
@@ -89,7 +89,7 @@ void solve(int x)
         int r = n;
         while (r >= 0)
         {
-            int o = fact(r) / (fact(2) * fact(r - 2));
+            int o = r * (r - 1) / 2;
             if (o > k)
             {
                 r--;

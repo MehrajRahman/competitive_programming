@@ -57,58 +57,72 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    string a, b;
+    cin >> a >> b;
+    if (a == b)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
-
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
-        {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
-        }
+        cout << "=" << nl;
+        return;
     }
 
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
+    if (a == "M")
     {
-        cout << "NO" << nl;
+        if (b[b.size() - 1] == 'S')
+        {
+            cout << ">" << nl;
+        }
+        else
+        {
+            cout << "<" << nl;
+        }
+    }
+    else if (b == "M")
+    {
+        if (a[a.size() - 1] == 'S')
+        {
+            cout << "<" << nl;
+        }
+        else
+        {
+            cout << ">" << nl;
+        }
     }
     else
     {
-        cout << "YES" << nl;
+        if (a[a.size() - 1] == b[b.size() - 1])
+        {
+
+            if (a.size() > b.size() && a[a.size() - 1] == 'S')
+            {
+                cout << "<" << nl;
+                return;
+            }
+            else if (a.size() < b.size() && a[a.size() - 1] == 'S')
+            {
+                cout << ">" << nl;
+                return;
+            }
+
+            if (a.size() > b.size() && a[a.size() - 1] == 'L')
+            {
+                cout << ">" << nl;
+            }
+            else
+            {
+                cout << "<" << nl;
+            }
+        }
+        else
+        {
+            if (a[a.size() - 1] == 'S')
+            {
+                cout << "<" << nl;
+            }
+            else
+            {
+                cout << ">" << nl;
+            }
+        }
     }
 }
 int main()

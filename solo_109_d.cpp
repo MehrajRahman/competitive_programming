@@ -27,6 +27,7 @@ typedef map<char, int> mc;
 #define sp " "
 
 #define bg 1000000
+const int N = 3e5 + 100;
 
 vector<bool> is_prime(bg + 1, true);
 vector<long long> is_prime_main;
@@ -55,72 +56,80 @@ bool comparefn(lpr a, lpr b)
     return false;
 }
 
+int a[N], l, r;
+ll ps[N], ng[N], mx = -1e18;
+map<int, vi> mp;
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    int n;
+    cin >> n;
+    REP(i, 1, n + 1)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
+        cin >> a[i];
+        mp[a[i]].PB(i);
+    }
 
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
+    REP(i, 1, n + 1)
+    {
+        ps[i] = ps[i - 1];
+        ng[i] = ng[i - 1];
+        if (a[i] > 0)
         {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
+            ps[i] += a[i];
         }
-        if (i == inp.size() - 1)
+        else
         {
-            cout << j << nl;
-            if (j <= l - 1)
+            ng[i] += a[i];
+        }
+    }
+
+    for (auto k : mp)
+    {
+        if (k.S.size() > 1)
+        {
+            int p = k.S[0];
+            int q = k.S.back();
+            ll cost = ps[q] - ps[p - 1] + (k.F < 0 ? 2 * k.F : 0);
+            if (cost > mx)
             {
-                flag = 1;
+                mx = cost;
+                l = p, r = q;
             }
         }
     }
 
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
+    int ans = l - 1 + n - r;
+    REP(i, l + 1, r)
     {
-        cout << "NO" << nl;
+        if (a[i] < 0)
+            ans++;
     }
-    else
+    cout << mx << ' ' << ans << nl;
+    REP(i, 1, l)
     {
-        cout << "YES" << nl;
+        cout << i << " ";
+    }
+    REP(i, l + 1, r)
+    {
+        if (a[i] < 0)
+            cout << i << " ";
+        
+    }
+    REP(i, r + 1, n + 1)
+    {
+        cout << i << " ";
     }
 }
 int main()
 {
     fast;
     // findPrime();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
-    // solve();
+    // int t;
+    // cin >> t;
+    // while (t--)
+    // {
+    //     solve();
+    // }
+    solve();
     return 0;
 }

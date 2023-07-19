@@ -57,59 +57,64 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    string a;
+    cin >> a;
+    int l = a.size(), po = -1, pf = -1, s = 0, t = 0, co = 0, ans = INT_MAX;
+    REPP(i, l - 1, 0)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
-
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
+        if (a[i] == '5' && pf == -1)
         {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
+            pf = i;
         }
-        if (i == inp.size() - 1)
+        if (a[i] == '0' && po == -1)
         {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
+            po = i;
         }
+        if (a[i] == '0')
+            co++;
+        if (a[i] == '2')
+            t++;
+        if (a[i] == '7')
+            s++;
     }
 
-    cout << "J is : " << j << nl;
+    int pt = -1, st = -1, so = -1, pfo = -1;
+    REPP(i, l - 1, 0)
+    {
+        if (i < po && a[i] == '0' && so == -1)
+            so = i;
+        if (i < pf && a[i] == '2' && pt == -1)
+            pt = i;
+        if (i < pf && a[i] == '7' && st == -1)
+            st = i;
+        if (i < po && a[i] == '5' && pfo == -1)
+            pfo = i;
+    }
+    int r1, r2;
+    if (pt != -1)
+    {
+        r1 = l - pf - 1 + (pf - pt - 1);
+        ans = min(ans, r1);
+    }
 
-    if (j >= l)
+    if (st != -1)
     {
-        cout << "NO" << nl;
+        r2 = l - pf - 1 + (pf - st - 1);
+        ans = min(ans, r2);
     }
-    else
+    if (so != -1)
     {
-        cout << "YES" << nl;
+        int cans = l - po - 1 + (po - so - 1);
+        ans = min(ans, cans);
     }
+
+    if (pfo != -1)
+    {
+        int cans = l - po - 1 + (po - pfo - 1);
+        ans = min(ans, cans);
+    }
+
+    cout << ans << nl;
 }
 int main()
 {

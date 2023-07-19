@@ -57,59 +57,69 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
+    int n, k;
+    cin >> n >> k;
+    vi v(n), r;
 
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    REP(i, 0, n)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
+        cin >> v[i];
+    }
+    cout << "R" << nl;
+    REP(i, 1, n)
+    {
+        r.PB(abs(v[i] - v[i - 1]));
+        cout << r[i - 1] << " ";
+    }
+    cout << nl;
 
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
+    ll s = n - k + 1, ans = INT_MAX;
+    // if()
+    int pp = k - 1;
+    // if (n % k == 0)
+    //     pp--;
+    cout << "s:" << s << nl;
+    while (s >= 2 && pp)
+    {
 
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
+        ll ss = 0, c = 0, cans = 0;
+        vi p;
+        REP(i, 0, r.size())
         {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
+            c++;
+            ss += r[i];
+            if (c == s - 1)
             {
-                flag = 1;
+                p.PB(ss);
+                cout << "ss: " << ss << nl;
+            }
+            else if (c > s - 1)
+            {
+                ss -= r[c - s];
+                p.PB(ss);
+                cout << "ss: " << ss << nl;
             }
         }
-    }
 
-    cout << "J is : " << j << nl;
+        sort(p.begin(), p.end());
 
-    if (j >= l)
-    {
-        cout << "NO" << nl;
+        ll tt = (k - pp);
+
+        cout << "s: " << s << " "
+             << "c: " << c << " "
+             << "pp: " << pp << " "
+             << "TT: " << tt << nl;
+
+        REP(i, 0, tt)
+        {
+            cans += p[i];
+        }
+        ans = min(ans, cans);
+        cout << "cans: " << cans << nl;
+        pp--;
+        s--;
     }
-    else
-    {
-        cout << "YES" << nl;
-    }
+    cout << ans << nl;
 }
 int main()
 {

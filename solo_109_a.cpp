@@ -57,70 +57,34 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    int nn;
+    cin >> nn;
+    string a;
+    cin >> a;
+    int n = 0, s = 0, u = 0;
+    vi v(3);
+    REP(i, 0, nn)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
-
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
-        {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
-        }
+        if (a[i] == 'N')
+            v[0]++;
+        if (a[i] == 'S')
+            v[1]++;
+        if (a[i] == 'U')
+            v[2]++;
     }
-
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
-    {
-        cout << "NO" << nl;
-    }
-    else
-    {
-        cout << "YES" << nl;
-    }
+    sort(v.begin(), v.end());
+    cout << v[0] << nl;
 }
 int main()
 {
     fast;
     // findPrime();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
-    // solve();
+    // int t;
+    // cin >> t;
+    // while (t--)
+    // {
+    //     solve();
+    // }
+    solve();
     return 0;
 }

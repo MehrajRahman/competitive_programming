@@ -55,72 +55,72 @@ bool comparefn(lpr a, lpr b)
     return false;
 }
 
+vector<int> adj[2000010];
+bool visited[2000010];
+
+void initialize()
+{
+    for (int i = 0; i < 2000010; ++i)
+        visited[i] = false;
+}
+
+void dfs(int s, int l, vector<pi> &d)
+{
+    visited[s] = true;
+
+    for (int i = 0; i < adj[s].size(); ++i)
+    {
+        if (visited[adj[s][i]] == false)
+        {
+            d.PB({l + 1, adj[s][i]});
+            dfs(adj[s][i], l + 1, d);
+        }
+    }
+}
+
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
-
-    cin >> f >> s;
-
-    REP(j, 0, l)
+    ll n;
+    cin >> n;
+    vector<pi> d;
+    if (n == 1)
     {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
-
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
-        {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
-        }
+        cout << 0 << nl;
+        return;
+    }
+    REP(i, 0, n)
+    {
+        int x, y;
+        cin >> x >> y;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
     }
 
-    cout << "J is : " << j << nl;
+    initialize();
+    ll l = 0;
+    dfs(1, l, d);
 
-    if (j >= l)
-    {
-        cout << "NO" << nl;
-    }
-    else
-    {
-        cout << "YES" << nl;
-    }
+    sort(d.rbegin(), d.rend());
+    int v = d[0].S;
+    d.clear();
+
+    initialize();
+    l = 0;
+    dfs(d[0].S, l, d);
+
+    sort(d.rbegin(), d.rend());
+    cout << d[0].F << nl;
 }
 int main()
 {
     fast;
     // findPrime();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
-    // solve();
+    // int t;
+    // cin >> t;
+    // while (t--)
+    // {
+    //     solve();
+    // }
+    solve();
     return 0;
 }

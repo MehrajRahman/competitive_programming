@@ -57,70 +57,26 @@ bool comparefn(lpr a, lpr b)
 
 void solve()
 {
-    string inp, f, s;
-    cin >> inp;
-    int l, j = 0, flag = 0;
-    cin >> l;
+    ll n, k, x, y;
+    cin >> n >> k >> x >> y;
 
-    cin >> f >> s;
-
-    REP(j, 0, l)
-    {
-        
-        int fi, se, ch = 0;
-        fi = f[j] - '0';
-        se = s[j] - '0';
-
-        REP(i,fi,se){
-            REP(i,0,inp.size()){
-                
-            }
-        }
-
-
-        int curr_char = inp[j] - '0';
-
-        cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-        if (curr_char >= fi && curr_char <= se)
-        {
-            j++;
-
-            cout << fi << " " << se << " " << curr_char << " j is :" << j << nl;
-
-            // continue;
-        }
-        if (i == inp.size() - 1)
-        {
-            cout << j << nl;
-            if (j <= l - 1)
-            {
-                flag = 1;
-            }
-        }
-    }
-
-    cout << "J is : " << j << nl;
-
-    if (j >= l)
-    {
-        cout << "NO" << nl;
-    }
-    else
-    {
-        cout << "YES" << nl;
-    }
+    ll ans = 0, ans2 = 0;
+    ans = min(n, k) * x;
+    ans2 = (n - k) * y;
+    if (ans2 > 0)
+        ans += ans2;
+    cout << ans << nl;
 }
 int main()
 {
     fast;
     // findPrime();
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-    }
-    // solve();
+    // int t;
+    // cin >> t;
+    // while (t--)
+    // {
+    //     solve();
+    // }
+    solve();
     return 0;
 }
