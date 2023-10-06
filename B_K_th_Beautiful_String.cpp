@@ -50,10 +50,9 @@ void findPrime()
 }
 bool comparefn(lpr a, lpr b)
 {
-    if (a.F == b.F)
+    if (a.S != b.S)
         return a.S < b.S;
-    // return false;
-    return a.F < b.F;
+    return false;
 }
 
 void solve()
@@ -61,31 +60,42 @@ void solve()
     ll n, k;
     cin >> n >> k;
 
-    vector<lpr> v;
-    vector<ll> r(k + 1);
+    ll lo = 1, hi = n, s = 0;
+    while (lo < hi)
+    {
+        ll mid = lo + (hi - lo) / 2;
+
+        ll s = mid * (mid - 1) / 2;
+        if (s >= k)
+        {
+            hi = mid;
+        }
+        else
+        {
+            lo = mid + 1;
+            // cout << "s : " << s << nl;
+        }
+    }
+    // cout << "cc :" << lo * (lo - 1) / 2 << nl;
+    ll pp = lo * (lo - 1) / 2;
+    // cout << lo << nl;
+    s = lo - (pp - k) - 1;
+    string a;
     REP(i, 1, n + 1)
     {
-        int x;
-        cin >> x;
-        v.PB({x, i});
+        if (i == s || i == lo)
+        {
+            a.PB('b');
+        }
+        else
+        {
+
+            a.PB('a');
+        }
     }
 
-    sort(v.begin(), v.end(), comparefn);
-
-    REP(i, 0, n)
-    {
-        int p = v[i].F;
-        ll d = max(abs(v[n - 1].S - v[i].S) + 1, n - i);
-        // ll d = n - i;
-        r[p] = max(r[p], d + d);
-    }
-    
-    REP(i, 1, k + 1)
-    {
-        cout << r[i] << " ";
-    }
-
-    cout << nl;
+    reverse(a.begin(), a.end());
+    cout << a << nl;
 }
 int main()
 {

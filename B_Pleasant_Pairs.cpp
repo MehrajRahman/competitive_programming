@@ -50,42 +50,42 @@ void findPrime()
 }
 bool comparefn(lpr a, lpr b)
 {
-    if (a.F == b.F)
+    if (a.S != b.S)
         return a.S < b.S;
-    // return false;
-    return a.F < b.F;
+    return false;
 }
 
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
+    ll n, c = 0;
+    cin >> n;
+    vector<ll> v(n + 1);
 
-    vector<lpr> v;
-    vector<ll> r(k + 1);
+    REP(i, 1, n + 1)
+    cin >> v[i];
+
     REP(i, 1, n + 1)
     {
-        int x;
-        cin >> x;
-        v.PB({x, i});
-    }
+        ll q = v[i];
+        ll j = 1;
+        while (q * j <= 2 * n)
+        {
+            ll p = q * j;
+            ll r = p - i;
+            if (p < i || r <= i)
+            {
+                j++;
+                continue;
+            }
 
-    sort(v.begin(), v.end(), comparefn);
-
-    REP(i, 0, n)
-    {
-        int p = v[i].F;
-        ll d = max(abs(v[n - 1].S - v[i].S) + 1, n - i);
-        // ll d = n - i;
-        r[p] = max(r[p], d + d);
+            if (r > n)
+                break;
+            if (j == v[r])
+                c++;
+            j++;
+        }
     }
-    
-    REP(i, 1, k + 1)
-    {
-        cout << r[i] << " ";
-    }
-
-    cout << nl;
+    cout << c << nl;
 }
 int main()
 {
